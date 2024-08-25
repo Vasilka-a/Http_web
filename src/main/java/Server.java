@@ -20,7 +20,7 @@ public class Server {
     private final ExecutorService threadPool;
     private final HashMap<String, Map<String, Handler>> handlers;
     protected String path;
-    private List<NameValuePair> param = null;
+    private List<NameValuePair> queryParam = null;
     private List<NameValuePair> bodyParams;
 
     public Server(int poolSize) {
@@ -76,7 +76,7 @@ public class Server {
                 path = pathQuery;
             } else {
                 path = pathQuery.substring(0, pathQuery.indexOf("?"));
-                param = Request.getQueryParams(pathQuery.substring(
+                queryParam = Request.getQueryParams(pathQuery.substring(
                         pathQuery.indexOf("?") + 1));
             }
 
@@ -119,7 +119,7 @@ public class Server {
                 }
             }
 
-            Request request = new Request(method, path, param, headers, bodyParams);
+            Request request = new Request(method, path, queryParam, headers, bodyParams);
             printRequest(request);
 
             if (!handlers.containsKey(request.getMethod())) {
@@ -152,9 +152,9 @@ public class Server {
 
     public void printRequest(Request request) {
         System.out.println(request);
-        if (param != null) {
+            if (queryParam!= null) {
             System.out.println("Query parameters by name: ");
-            Request.getQueryParam(param, "tittle");
+            Request.getQueryParam(queryParam, "tittle");
         }
         if (bodyParams != null) {
             System.out.println("Body by name: ");

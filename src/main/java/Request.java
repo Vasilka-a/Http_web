@@ -5,22 +5,22 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 public class Request {
-    private static List<NameValuePair> params;
+    private static List<NameValuePair> queryParams;
     private static List<NameValuePair> bodyParams;
     private static List<String> headers;
     private final String method;
     private final String path;
 
-    public Request(String method, String path, List<NameValuePair> params, List<String> headers, List<NameValuePair> bodyParams) {
+    public Request(String method, String path, List<NameValuePair> queryParams, List<String> headers, List<NameValuePair> bodyParams) {
         this.method = method;
         this.path = path;
-        this.params = params;
+        this.queryParams = queryParams;
         this.headers = headers;
         this.bodyParams = bodyParams;
     }
 
     public static List<NameValuePair> getQueryParams(String name) {
-        return params = URLEncodedUtils.parse(name, StandardCharsets.UTF_8);
+        return queryParams = URLEncodedUtils.parse(name, StandardCharsets.UTF_8);
     }
 
     public static void getQueryParam(List<NameValuePair> params, String key) {
@@ -55,8 +55,8 @@ public class Request {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("\n").append(method).append(" ").append(path).append(" ");
-        if (params != null) {
-            sb.append(params);
+        if (queryParams!= null) {
+            sb.append(queryParams);
         }
         sb.append("\n").append(headers).append("\n").append("\n");
         if (bodyParams != null) {
